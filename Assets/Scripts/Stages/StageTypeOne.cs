@@ -1,4 +1,7 @@
+using System;
 using Managers;
+using Signals;
+using UnityEngine;
 
 namespace Stages
 {
@@ -7,6 +10,7 @@ namespace Stages
         protected override void Awake()
         {
             stageID = GetInstanceID();
+            Btns();
         }
     }
 }
