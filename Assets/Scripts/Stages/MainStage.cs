@@ -1,6 +1,8 @@
 using System;
 using Signals;
 using UnityEngine;
+using UnityEngine.UI;
+
 namespace Stages
 {
     [Serializable]
@@ -10,36 +12,50 @@ namespace Stages
         public bool IsFull= false;
         public bool IsEmpty= true;
         protected int stageID;
-        protected abstract void Awake();
         
+        public GameObject CanvasObj;
+        public GameObject ButtonRefPrefab;
+        public Transform pos;
+        public bool locked;
+        private GameObject btns;
+        
+        private Button chill;
+       
+        protected abstract void Awake();
         private void OnTriggerEnter(Collider other)
         {
+            btns.SetActive(true);
             UpdateStageCount(1);
         }
         private void OnTriggerExit(Collider other)
         {
             UpdateStageCount(-1);
         }
+
+        protected void Btns()
+        {
+            btns  = Instantiate(ButtonRefPrefab, transform.position+new Vector3(5.5f,0,0), Quaternion.identity,CanvasObj.transform);
+
+            btns.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            btns.transform.Rotate(new Vector3(0f,270f,0f));
+            if (btns.transform.childCount > 0)
+            {
+                pos = btns.transform.GetChild(0);
+                chill = btns.transform.GetChild(2).transform.gameObject.GetComponent<Button>();
+                chill.onClick.AddListener(lockFnc);
+
+
+            }
+        }
+        protected void lockFnc()
+        {
+            locked = !locked;
+        }
         public void UpdateStageCount(int value)
         {
             _stageCount += value;
-            if (_stageCount < 3)
-            { 
-                IsFull = false;
-            }
-            else
-            { 
-                IsFull = true;
-            }
-
-            if (_stageCount==0)
-            {
-                IsEmpty = true;
-            }
-            else
-            {
-                IsEmpty = false;
-            }
+            IsFull = _stageCount >= 3;
+            IsEmpty = _stageCount == 0;
         }
     }
 }
