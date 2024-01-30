@@ -1,4 +1,5 @@
 using System;
+using Interfaces;
 using Signals;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,12 +7,13 @@ using UnityEngine.UI;
 namespace Stages
 {
     [Serializable]
-    public abstract class MainStage : MonoBehaviour
+    public abstract class MainStage : MonoBehaviour  
     { 
         public int _stageCount;
         public bool IsFull= false;
         public bool IsEmpty= true;
         protected int stageID;
+        public bool HaveEnemy = false;
         
         public GameObject CanvasObj;
         public GameObject ButtonRefPrefab;
@@ -24,14 +26,18 @@ namespace Stages
         protected abstract void Awake();
         private void OnTriggerEnter(Collider other)
         {
-            btns.SetActive(true);
-            UpdateStageCount(1);
+            if (other.CompareTag("Player"))
+            {
+                btns.SetActive(true);
+                // UpdateStageCount(1);
+            }
+            UpdateStageCount();
         }
         private void OnTriggerExit(Collider other)
         {
-            UpdateStageCount(-1);
+          //  UpdateStageCount(-1);
+          UpdateStageCount();
         }
-
         protected void Btns()
         {
             btns  = Instantiate(ButtonRefPrefab, transform.position+new Vector3(5.5f,0,0), Quaternion.identity,CanvasObj.transform);
@@ -43,19 +49,21 @@ namespace Stages
                 pos = btns.transform.GetChild(0);
                 chill = btns.transform.GetChild(2).transform.gameObject.GetComponent<Button>();
                 chill.onClick.AddListener(lockFnc);
-
-
             }
         }
         protected void lockFnc()
         {
             locked = !locked;
         }
-        public void UpdateStageCount(int value)
+        public void UpdateStageCount()//int value
         {
-            _stageCount += value;
+           // _stageCount += value;
             IsFull = _stageCount >= 3;
             IsEmpty = _stageCount == 0;
+            if (IsEmpty)
+            {
+                HaveEnemy = false;
+            }
         }
     }
 }
