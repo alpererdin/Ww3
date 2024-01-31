@@ -1,34 +1,29 @@
 using Units;
 using UnityEngine;
-
 namespace States
 {
     public class IdleState : BaseState
     {
         public override UnitStateType Type => UnitStateType.Idle;
-        
         private UnitMain _unit;
-        
         public override void EnterState(UnitMain unit)
         {
             this._unit = unit;
-         //   Debug.Log("enter idleState");
+            _unit.onStage = true;
         }
-
-
         public override void UpdateState()
         {
-          
+            if (!_unit.onFight)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(_unit.transform.position, _unit.Range, _unit.enemyLayer);
+                if (hitColliders.Length > 0)
+                {
+                    _unit.SetUnitState(UnitStateFactory.FightState());
+                    _unit.onFight = true; //true before 
+                }
+            }
         }
-
-        public override void FixedUpdate()
-        {
-             
-        }
-
-        public override void ExitState()
-        {
-          //  Debug.Log("ext idleState");
-        }
+        public override void FixedUpdate() { }
+        public override void ExitState() { }
     }
 }
