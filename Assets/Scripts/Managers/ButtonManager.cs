@@ -12,7 +12,7 @@ namespace Managers
     public class ButtonManager : MonoBehaviour
     {
         public GameObject ButtonRefPrefab;
-        private Dictionary<int, GameObject> idToButtonMap = new Dictionary<int, GameObject>();
+        public Dictionary<int, GameObject> idToButtonMap = new Dictionary<int, GameObject>();
         private void OnEnable()
         {
             UnitSignals.Instance.OnUnitID += PasteID;
@@ -35,7 +35,6 @@ namespace Managers
         private void CreateAndAddListenerBtn(int id, GameObject btn, GameObject t)
         { 
             t.GetComponent<StageTypeOne>()._stageCount -=1;
-          
             idToButtonMap.Remove(id);
             Destroy(btn);
             UnitSignals.Instance.SetUnitState?.Invoke(id);

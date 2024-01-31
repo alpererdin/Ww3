@@ -31,6 +31,14 @@ namespace Stages
                 btns.SetActive(true);
                 // UpdateStageCount(1);
             }
+
+            if (other.CompareTag("Enemy"))
+            {
+
+                btns.SetActive(false);
+                // UpdateStageCount(1);
+            }
+            
             UpdateStageCount();
         }
         private void OnTriggerExit(Collider other)
