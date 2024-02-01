@@ -10,6 +10,10 @@ namespace States
         public static IdleState IdleState()
         {
             return new IdleState();
+        } 
+        public static FightState FightState()
+        {
+            return new FightState();
         }
     }
  
