@@ -18,8 +18,9 @@ namespace States
                 Collider[] hitColliders = Physics.OverlapSphere(_unit.transform.position, _unit.Range, _unit.enemyLayer);
                 if (hitColliders.Length > 0)
                 {
+                   
                     _unit.SetUnitState(UnitStateFactory.FightState());
-                    _unit.onFight = true; //true before 
+                     //true before 
                 }
             }
         }
