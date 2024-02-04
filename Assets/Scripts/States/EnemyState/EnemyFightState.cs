@@ -30,11 +30,17 @@ namespace States.EnemyState
                 {
                     t = Random.Range(0, hitColliders.Length-1);
                     _target = hitColliders[t].transform;
-                    Vector3 targetDirection = _enemy.transform.position - _target.position;
+                  //  Vector3 targetDirection = _enemy.transform.position - _target.position;
                    // _enemy.transform.rotation = Quaternion.LookRotation(targetDirection.normalized);
                    //_enemy.shootParticle.transform.rotation = Quaternion.LookRotation(targetDirection.normalized);
                    _enemy.shootParticle.transform.LookAt(_target.transform.position);
                 }
+                // if units range shorter then enemy  -->
+                if (!_enemy.shootParticle &&!_target)
+                {
+                    _enemy.shootParticle.transform.LookAt(_target.transform.position);
+                }
+                
             }
         }
         public override void FixedUpdate() { }
@@ -42,5 +48,7 @@ namespace States.EnemyState
         {
             _enemy.shootParticle.Stop();
         }
+        
+        
     }
 }
