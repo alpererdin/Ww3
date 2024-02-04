@@ -39,6 +39,12 @@ namespace States
                    // _unit.transform.LookAt(_target.transform.position);
                    _unit.shootParticle.transform.LookAt(_target.transform.position);
                 }
+
+                if (!_unit && !_target)
+                {
+                    _unit.shootParticle.transform.LookAt(_target.transform.position);
+                }
+               
             }
         }
         public override void FixedUpdate() { }
