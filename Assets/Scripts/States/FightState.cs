@@ -30,7 +30,7 @@ namespace States
                     _unit.shootParticle.transform.rotation = new Quaternion(0, 0, 0, 0);
                    // _unit.SetUnitState(UnitStateFactory.MoveState());
                    _unit.onFight = false;
-                    _unit.SetUnitState(_unit.memory);     //??????
+                    _unit.SetUnitState(_unit.memory);     //?????? **16.02 for last state
                 }
                 if (_target == null && hitColliders.Length >0)
                 {
@@ -39,14 +39,18 @@ namespace States
                    // _unit.transform.LookAt(_target.transform.position);
                    _unit.shootParticle.transform.LookAt(_target.transform.position);
                 }
-
-                if (!_unit && !_target)
+                    
+                /* if (!_unit.shootParticle && !_target)
                 {
                     _unit.shootParticle.transform.LookAt(_target.transform.position);
-                }
-               
+                }*/
+               if (_unit.shootParticle != null && _target != null)
+               {
+                   _unit.shootParticle.transform.LookAt(_target.transform.position);
+               }
             }
         }
+
         public override void FixedUpdate() { }
 
         public override void ExitState()
