@@ -10,21 +10,46 @@ namespace Units
     public abstract class EnemyMain :MonoBehaviour
     {
         internal int Speed; 
+        [HideInInspector]
         public EnemyBaseState CurrentState;
+        [HideInInspector]
         public int ID;
+        [HideInInspector]
         public bool onFight = false;
+        public bool onStage = false;//********
+        [HideInInspector]
         public LayerMask playerLayer;
+        [HideInInspector]
         public float Range;
+        [HideInInspector]
         public ParticleSystem shootParticle;
+        [HideInInspector]
+        public Animator gunAnim;
+        [HideInInspector]
+        public Animator _anim;
+        [HideInInspector]
+        public EnemyBaseState _memory;
+        [HideInInspector]
+        public float Damage;
+        
         private void OnEnable()
         {
             UnitSignals.Instance.SetUnitState += CheckId;
+            UnitSignals.Instance.DeathAnimAction += SetDeathState;
+        }
+        protected void SetDeathState(int i)
+        {
+            if (ID == i)
+            {
+              SetUnitState(EnemyStateFactory.EnemyDeathState());
+            }
         }
         protected void CheckId(int i)
         {
             if (ID == i)
             {
-                SetUnitState(EnemyStateFactory.EnemyMoveState());
+              //  SetUnitState(EnemyStateFactory.EnemyMoveState());
+              SetUnitState(EnemyStateFactory.EnemyJumpedState());
             }
         }
         protected abstract void Awake();
@@ -37,6 +62,7 @@ namespace Units
         }
         public void SetUnitState(EnemyBaseState newState)
         {
+            _memory = CurrentState;
             CurrentState?.ExitState();
             CurrentState = newState;
             CurrentState.EnterState(this);
@@ -52,7 +78,8 @@ namespace Units
                     stage._stageCount++;
                     stage.HaveEnemy=true;
                     //UnitSignals.Instance.OnUnitID?.Invoke(ID, BtnColor, stage.pos, other.gameObject);
-                    SetUnitState(EnemyStateFactory.EnemyIdleState());
+                    //SetUnitState(EnemyStateFactory.EnemyIdleState());
+                    SetUnitState(EnemyStateFactory.EnemyJumpState());
                 }
             }
         }

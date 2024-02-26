@@ -8,6 +8,6 @@ namespace States.EnemyState
 
     public enum EnemyStateType
     {
-        None,Move,Idle,Fight,
+        None,Move,Idle,Fight,Death,Jump,Jumped,
     }
 }

@@ -1,40 +1,58 @@
+using Data.ScriptableObjects;
 using Signals;
-using States.EnemyState;
 using UnityEngine;
 namespace Units
 {
-     
     public class EnemySolider : EnemyMain
     {
-        public int unitSpeed;
-        public float shootSpeed=.5f;
-        public float bulletSpeed=.5f;
-        
+        [Header("DATA")]
+        public SoldierData soldierData;
         private bool _soundTick;
         protected override void Awake()
         {
-            Speed = unitSpeed;
+            if (soldierData != null)
+            {
+                Range = soldierData.unitRange;
+                Speed = soldierData.unitSpeed;
+                Damage = soldierData.baseDamage;
+                
+                var simulatorSpeed = shootParticle.main;
+                var emission = shootParticle.emission;
+                emission.rateOverTimeMultiplier = soldierData.shootSpeed;
+                simulatorSpeed.simulationSpeed = soldierData.bulletSpeed;
+                var shotScatter = shootParticle.shape;
+                shotScatter.angle = soldierData.shotScatter;
+                simulatorSpeed.startSpeed =soldierData.unitRange+1;
+            }
+            else
+            {
+                Range = 25f;
+                Speed = 1;
+                Damage = 1f;
+                var simulatorSpeed = shootParticle.main;
+                var emission = shootParticle.emission;
+                emission.rateOverTimeMultiplier = 0.5f;
+                simulatorSpeed.simulationSpeed = 0.5f;
+                var shotScatter = shootParticle.shape;
+                shotScatter.angle = 1f;
+                simulatorSpeed.startSpeed =25;
+            }
             ID = GetInstanceID();
-            var simulatorSpeed = shootParticle.main;
-            var emission = shootParticle.emission;
-            emission.rateOverTimeMultiplier = shootSpeed;
-            simulatorSpeed.simulationSpeed = bulletSpeed;
         }
         private void Update()
         {
             CurrentState?.UpdateState();
             if (shootParticle.particleCount>0 && !_soundTick)
             {
-                // Debug.Log(shoot);
                 _soundTick = true;
                 UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
+                gunAnim.SetTrigger("Fire");
+                _anim.SetTrigger("ShootA");
             }
-
             if (shootParticle.particleCount==0)
             {
                 _soundTick = false;
             }
-           
         }
         private void FixedUpdate()
         {
