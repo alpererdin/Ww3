@@ -17,20 +17,24 @@ namespace Managers
         {
             UnitSignals.Instance.OnUnitID += PasteID;
         }
-        private void PasteID(int id,Color color,Transform pos,GameObject t)
+        private void PasteID(int id,Sprite color,Transform pos,GameObject t)//Color color
         {
             t.GetComponent<StageTypeOne>()._stageCount +=1;
          
             GameObject btn = Instantiate(ButtonRefPrefab, pos.position+new Vector3(0f,.7f,0), quaternion.identity,pos.transform);
-            btn.transform.Rotate(new Vector3(0f, -90f, 0));
+            btn.transform.Rotate(new Vector3(30, -90f, 0f));//x=0,z=0
             Button _button= btn.GetComponent<Button>();
-            TextMeshProUGUI _buttonText= btn.GetComponentInChildren<TextMeshProUGUI>();
+//            TextMeshProUGUI _buttonText= btn.GetComponentInChildren<TextMeshProUGUI>();
             _button.onClick.AddListener(() => CreateAndAddListenerBtn(id, btn , t));
-            _button.image.color = color;
+            
+            _button.image.sprite = color;
+          
             _button.name = id.ToString();
-            _buttonText.text = ""+id;
+//            _buttonText.text = ""+id;
             idToButtonMap.Add(id, btn);
 
+            
+            //_button.image.color = color;
         }  
         private void CreateAndAddListenerBtn(int id, GameObject btn, GameObject t)
         { 
