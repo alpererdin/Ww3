@@ -17,10 +17,12 @@ namespace Managers
         public GameObject enemyBasic;
         public GameObject enemyMachin;
         public GameObject enemyGunner;
+        public GameObject enemyBomber;
 
         public SoldierData BasicEnemyData;
         public SoldierData MachinEnemyData;
         public SoldierData GunnerEnemyData;
+        public SoldierData BomberEnemyData;
         
         public List<GameObject> enemies;
         public List<GameObject> spawnPointX;
@@ -33,8 +35,8 @@ namespace Managers
             //Debug.Log("spawn");
             int t= Random.Range(0, enemies.Count());
             int z= Random.Range(0, spawnPointX.Count());
-            Instantiate(enemies[t], spawnPointX[z].gameObject.transform.position, enemies[t].gameObject.transform.rotation);
-            _counter++;
+            //Instantiate(enemies[t], spawnPointX[z].gameObject.transform.position, enemies[t].gameObject.transform.rotation);
+           // _counter++;
         }
         private void Update()
         {

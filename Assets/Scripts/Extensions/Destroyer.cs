@@ -5,7 +5,7 @@ namespace Extensions
 {
     public class Destroyer : MonoBehaviour
     {
-        private int _clc = 2;
+        public float _clc = 2;
 
         private void Start()
         {

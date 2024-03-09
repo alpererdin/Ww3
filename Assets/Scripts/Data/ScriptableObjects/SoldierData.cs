@@ -15,6 +15,9 @@ namespace Data.ScriptableObjects
         public Color btnColor = Color.blue;
         public float coolDownTime;
         
+        
+        public float health;
+        
         //
        /* public int currentUpgradeLevel = 0;
         public float upgradeMultiplier = 1.2f; 
