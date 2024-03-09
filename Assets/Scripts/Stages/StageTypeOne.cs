@@ -9,8 +9,10 @@ namespace Stages
     {
         protected override void Awake()
         {
+            CanvasObj= GameObject.FindWithTag("Canvas").gameObject;
             stageID = GetInstanceID();
             Btns();
         }
+     
     }
 }

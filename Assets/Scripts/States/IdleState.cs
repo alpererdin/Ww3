@@ -9,18 +9,16 @@ namespace States
         public override void EnterState(UnitMain unit)
         {
             this._unit = unit;
-            _unit.onStage = true;
+            _unit._anim.SetTrigger("IdleA");
         }
         public override void UpdateState()
         {
-            if (!_unit.onFight)
+            if (!_unit.onFight )
             {
                 Collider[] hitColliders = Physics.OverlapSphere(_unit.transform.position, _unit.Range, _unit.enemyLayer);
                 if (hitColliders.Length > 0)
                 {
-                   
                     _unit.SetUnitState(UnitStateFactory.FightState());
-                     //true before 
                 }
             }
         }

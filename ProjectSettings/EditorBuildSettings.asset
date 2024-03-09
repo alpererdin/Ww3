@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/menu.unity
     guid: eb538f0f919c3d94ea73d7525ff8c487
   - enabled: 1
-    path: Assets/Scenes/campaignMap.unity
-    guid: fd17988953ca25f469c7f819ad64762b
-  - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: c8d3351e833ddb741b1647b2546b3a4f
   m_configObjects: {}

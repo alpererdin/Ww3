@@ -9,6 +9,11 @@ TagManager:
   - Particle
   - ButtonManager
   - Canvas
+  - FxTemporaire
+  - DistanceObj
+  - Plane
+  - Bomb
+  - Tank
   layers:
   - Default
   - TransparentFX
@@ -19,8 +24,8 @@ TagManager:
   - Enemy
   - Player
   - Plane
-  - 
-  - 
+  - Bomb
+  - Abilities
   - 
   - 
   - 

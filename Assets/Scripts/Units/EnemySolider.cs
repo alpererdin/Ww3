@@ -15,6 +15,7 @@ namespace Units
                 Range = soldierData.unitRange;
                 Speed = soldierData.unitSpeed;
                 Damage = soldierData.baseDamage;
+                Health = soldierData.health;
                 
                 var simulatorSpeed = shootParticle.main;
                 var emission = shootParticle.emission;
@@ -29,6 +30,8 @@ namespace Units
                 Range = 25f;
                 Speed = 1;
                 Damage = 1f;
+                Health = 10f;
+                
                 var simulatorSpeed = shootParticle.main;
                 var emission = shootParticle.emission;
                 emission.rateOverTimeMultiplier = 0.5f;

@@ -9,6 +9,7 @@ namespace States.EnemyState
         public override void EnterState(EnemyMain enemy)
         {
             this._enemy = enemy;
+            _enemy._anim.SetTrigger("IdleA");
         }
         public override void UpdateState()
         {
@@ -16,7 +17,8 @@ namespace States.EnemyState
             {
                 Collider[] hitColliders = Physics.OverlapSphere(_enemy.transform.position, _enemy.Range, _enemy.playerLayer);
                 if (hitColliders.Length > 0)
-                { _enemy.onFight = true; 
+                { 
+                  //  _enemy.onFight = true; 
                     _enemy.SetUnitState(EnemyStateFactory.EnemyFightState());
                    //true before 
                 }

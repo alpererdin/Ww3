@@ -16,6 +16,8 @@ namespace Units
                 Speed = soldierData.unitSpeed;
                 Damage = soldierData.baseDamage;
                 BtnColor = soldierData.btnColor;
+                Health = soldierData.health;
+                
                 var simulatorSpeed = shootParticle.main;
                 var emission = shootParticle.emission;
                 emission.rateOverTimeMultiplier = soldierData.shootSpeed;
@@ -30,6 +32,8 @@ namespace Units
                 Range = 25f;
                 Speed = 1;
                 Damage = 1f;
+                Health = 10f;
+                
                 BtnColor = Color.blue;
                 var simulatorSpeed = shootParticle.main;
                 var emission = shootParticle.emission;
@@ -44,17 +48,18 @@ namespace Units
         private void Update()
         {
             CurrentState?.UpdateState();
-            if (shootParticle.particleCount>0 && !_soundTick)
-            {
-               _soundTick = true;
-                UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
-                gunAnim.SetTrigger("Fire");
-                _anim.SetTrigger("ShootA");
-            }
-            if (shootParticle.particleCount==0)
-            {
-                _soundTick = false;
-            }
+           
+                if (shootParticle.particleCount>0 && !_soundTick)
+                {
+                    _soundTick = true;
+                    UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
+                    gunAnim.SetTrigger("Fire");
+                    _anim.SetTrigger("ShootA");
+                }
+                if (shootParticle.particleCount==0)
+                {
+                    _soundTick = false;
+                }
         }
         private void FixedUpdate()
         {

@@ -14,6 +14,17 @@ namespace States
         public static FightState FightState()
         {
             return new FightState();
+        }  
+        public static DeathState DeathState()
+        {
+            return new DeathState();
+        } 
+        public static JumpState JumpState()
+        {
+            return new JumpState();
+        }public static JumpedState JumpedState()
+        {
+            return new JumpedState();
         }
     }
  

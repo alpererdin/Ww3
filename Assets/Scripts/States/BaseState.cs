@@ -8,6 +8,6 @@ namespace States
 
     public enum UnitStateType
     {
-        None,Move,Idle,Fight,
+        None,Move,Idle,Fight,Death,Jump,Jumped,
     }
 }
