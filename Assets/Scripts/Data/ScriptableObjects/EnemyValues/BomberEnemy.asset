@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf12c9c3ca94cc6bf9ce452d74b882a, type: 3}
+  m_Name: BomberEnemy
+  m_EditorClassIdentifier: 
+  baseDamage: 8
+  unitSpeed: 3
+  shootSpeed: 0.3
+  bulletSpeed: 0.5
+  shotScatter: 0.5
+  unitRange: 20
+  btnColor: {r: 1, g: 0.5773492, b: 0, a: 1}
+  coolDownTime: 0.5
+  health: 20
+  imgg: {fileID: 0}
