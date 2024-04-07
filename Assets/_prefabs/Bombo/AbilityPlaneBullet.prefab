@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3314519101757587713}
   - component: {fileID: 5425731266906128508}
   - component: {fileID: 8919879714375359270}
-  m_Layer: 9
+  - component: {fileID: -3311671168278094147}
+  m_Layer: 0
   m_Name: AbilityPlaneBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,6 +107,22 @@ MonoBehaviour:
   rb: {fileID: 3314519101757587713}
   forceMagnitude: 40
   isAbility: 0
+--- !u!114 &-3311671168278094147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484629208640555057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0447835e8463fba35ebfb18f0e54c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+    type: 3}
+  explosionCollider: {fileID: 1100519153651240226, guid: 95fe9bcfafc1840499191977e3299b9f,
+    type: 3}
 --- !u!1 &2118722113546878265
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6845326738754132980}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: UCP45 Bullet Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +166,7 @@ GameObject:
   - component: {fileID: 5260330677180214593}
   - component: {fileID: 2978496566355108737}
   - component: {fileID: 6957176664576975525}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Pistol_45ACP_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +249,7 @@ GameObject:
   - component: {fileID: 3321349462263664129}
   - component: {fileID: 3288126669725156386}
   - component: {fileID: 9015790927386953392}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 45ACP Casing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8261513459592864771}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: 45ACP Bullet_Casing
   m_TagString: Untagged
   m_Icon: {fileID: 0}

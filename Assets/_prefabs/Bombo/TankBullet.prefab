@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3314519101757587713}
   - component: {fileID: 5425731266906128508}
   - component: {fileID: 8919879714375359270}
-  m_Layer: 9
+  - component: {fileID: 1737676969061103797}
+  m_Layer: 0
   m_Name: TankBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb761dd7275eab34abb3f07ece3bee52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+  explosionPrefab: {fileID: 2433282508537954060, guid: b59f002c053e0214181e681b962a6efc,
     type: 3}
   enemyLayer:
     serializedVersion: 2
@@ -106,6 +107,22 @@ MonoBehaviour:
   rb: {fileID: 3314519101757587713}
   forceMagnitude: 40
   isAbility: 0
+--- !u!114 &1737676969061103797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484629208640555057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eca0447835e8463fba35ebfb18f0e54c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2433282508537954060, guid: b59f002c053e0214181e681b962a6efc,
+    type: 3}
+  explosionCollider: {fileID: 1100519153651240226, guid: 95fe9bcfafc1840499191977e3299b9f,
+    type: 3}
 --- !u!1 &2118722113546878265
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,11 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6845326738754132980}
-  - component: {fileID: 52037233908493190}
-  - component: {fileID: 6712112430621400178}
   m_Layer: 0
   m_Name: UCP45 Bullet Head
-  m_TagString: Tank
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,43 +155,6 @@ Transform:
   - {fileID: 5260330677180214593}
   m_Father: {fileID: 1838026331861876444}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &52037233908493190
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118722113546878265}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.005
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6712112430621400178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118722113546878265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eca0447835e8463fba35ebfb18f0e54c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
-    type: 3}
-  explosionCollider: {fileID: 1100519153651240226, guid: 95fe9bcfafc1840499191977e3299b9f,
-    type: 3}
 --- !u!1 &2759923426175512572
 GameObject:
   m_ObjectHideFlags: 0
