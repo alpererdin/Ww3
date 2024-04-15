@@ -19,6 +19,6 @@ MonoBehaviour:
   shotScatter: 1
   unitRange: 25
   btnColor: {r: 0, g: 0, b: 1, a: 1}
-  coolDownTime: 3
+  coolDownTime: 25
   health: 100
   imgg: {fileID: 21300040, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}

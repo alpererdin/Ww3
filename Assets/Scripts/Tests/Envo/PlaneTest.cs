@@ -17,6 +17,7 @@ public class PlaneTest : MonoBehaviour
     private void OnDisable()
     {
         GameSignals.Instance.PlaneAnim -= StartToEndFunc;
+        StopAllCoroutines();
     }
 
     void StartToEndFunc()
@@ -36,7 +37,11 @@ public class PlaneTest : MonoBehaviour
             yield return null;
         }
 
-        transform.position = endPos; 
+        transform.position = startPos; 
+    }
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
     
     

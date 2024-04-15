@@ -22,33 +22,39 @@ public class MenuSC : MonoBehaviour
    
    public void ContinueFunc()
    {
-       GameSignals.Instance.PlayOneShotEffect?.Invoke();
+      // GameSignals.Instance.PlayOneShotEffect?.Invoke();
        upgradePanel.SetActive(true);
        menuPanel.SetActive(false);
        optionsPanel.SetActive(false);
+       
+       AudioManager.Instance.PlaySFX("Click");
    }
 
    public void OptionsBtn()
    {
-       GameSignals.Instance.PlayOneShotEffect?.Invoke();
+     //  GameSignals.Instance.PlayOneShotEffect?.Invoke();
        upgradePanel.SetActive(false);
        menuPanel.SetActive(false);
        optionsPanel.SetActive(true);
+       
+       AudioManager.Instance.PlaySFX("Click");
    }
 
    public void DoneInOptions()
    {
-       GameSignals.Instance.PlayOneShotEffect?.Invoke();
+     //  GameSignals.Instance.PlayOneShotEffect?.Invoke();
        upgradePanel.SetActive(false);
        menuPanel.SetActive(true);
        optionsPanel.SetActive(false);
+       AudioManager.Instance.PlaySFX("Click");
    }
    
    public void DoneInUpgradeMenu()
    {
-       GameSignals.Instance.PlayOneShotEffect?.Invoke();
+       //GameSignals.Instance.PlayOneShotEffect?.Invoke();
        upgradeMenuPanel.SetActive(false);
        beforeLaunchPanel.SetActive(true);
+       AudioManager.Instance.PlaySFX("Click");
        
    }
 }

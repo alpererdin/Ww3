@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf12c9c3ca94cc6bf9ce452d74b882a, type: 3}
   m_Name: MachineEnemy
   m_EditorClassIdentifier: 
-  baseDamage: 3
+  baseDamage: 2
   unitSpeed: 3
-  shootSpeed: 0.7
-  bulletSpeed: 0.4
+  shootSpeed: 0.3
+  bulletSpeed: 1.5
   shotScatter: 0.7
   unitRange: 20
   btnColor: {r: 1, g: 0.5773492, b: 0, a: 1}

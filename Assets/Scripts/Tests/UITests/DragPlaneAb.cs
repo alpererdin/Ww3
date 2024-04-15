@@ -15,8 +15,6 @@ public class DragPlaneAb : MonoBehaviour, IEndDragHandler, IDragHandler
     {
         rectTransform = GetComponent<RectTransform>();
         initialPosition = rectTransform.anchoredPosition;
-        
-        // fillImage = GetComponent<Image>(); 
     }
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -30,7 +28,7 @@ public class DragPlaneAb : MonoBehaviour, IEndDragHandler, IDragHandler
                 GameSignals.Instance.TargetPlaneAbility?.Invoke(hit.point);
                 GameSignals.Instance.PlaneAnim?.Invoke();
                 StartCoroutine(WaitForCooldown());
-                // burada bekleme süresi  GameSignals.Instance.TankAbilityCoolDown?.Invoke();
+               
             }
         }
 
@@ -59,5 +57,14 @@ public class DragPlaneAb : MonoBehaviour, IEndDragHandler, IDragHandler
         }
         cd = true;
         fillImage.fillAmount = 0f;
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

@@ -1,7 +1,57 @@
-namespace Tests.UITests.MoveBtn
+using System;
+using Signals;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class RightBtnT : MonoBehaviour,
+    IPointerDownHandler,IUpdateSelectedHandler,IPointerUpHandler
 {
-    public class RightBtnT
+    public float currentZ;
+    
+    public bool isPressed = false;
+    public float maxZ = 50f;
+    public float sensitivity = 5f;
+    public Camera _main;
+    
+    private void OnEnable()
     {
+        GameSignals.Instance.CameraMaxZAmount += setMaxZ;
+    }
+
+    private void setMaxZ(int arg0)
+    {
+        maxZ = arg0;
+    }
+
+    private void OnDisable()
+    {
+        GameSignals.Instance.CameraMaxZAmount -= setMaxZ;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        isPressed = true;
+    }
+   
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isPressed = false;
+    }
+    public void OnUpdateSelected(BaseEventData data)
+    {
+        if (isPressed)
+        {
+            MoveZ();
+        }
+    }
+    private void MoveZ()
+    {
+        float currentZ = _main.transform.position.z;
         
+        if (currentZ < maxZ)
+        { 
+            currentZ += sensitivity * Time.deltaTime;
+            _main.transform.position = new Vector3(_main.transform.position.x, _main.transform.position.y, currentZ);
+        }
     }
 }

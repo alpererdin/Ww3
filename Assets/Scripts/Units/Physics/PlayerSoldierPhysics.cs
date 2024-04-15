@@ -1,5 +1,6 @@
 using Managers;
 using Signals;
+using TMPro;
 using Units;
 using Unity.Mathematics;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class PlayerSoldierPhysics : MonoBehaviour
     public GameObject DeadParticle;
     public float soldierHealth;
     public float baseHealth;
+    public GameObject FloatingTextPrefab;
     private void Start()
     {
         btnManager = FindObjectOfType<ButtonManager>();
@@ -45,24 +47,30 @@ public class PlayerSoldierPhysics : MonoBehaviour
         {
             DeadFunc(5);
         }
-        /*if (other.CompareTag("Tank"))
+        if (other.CompareTag("Tank"))
         {
             DeadFunc(10);
-        }*/
+        }
     }
     void DeadFunc(float i)
     {
+        if (FloatingTextPrefab !=null)
+        {
+            ShowText(i);
+        }
         soldierHealth -= i;
         float scaledHealth = Mathf.Clamp01((float)soldierHealth / baseHealth); 
         _quadTransform.localScale = new Vector3( scaledHealth, 1, 1);
         if (soldierHealth <= 0)
         {
+            ScoreBoardSignals.Instance.OnUnitLost?.Invoke();
             Instantiate(DeadParticle, transform.position, quaternion.identity);
             transform.GetComponent<CapsuleCollider>().isTrigger = true; 
             UnitSignals.Instance.DeathAnimAction?.Invoke(playerID);
             if (transform.parent.gameObject.GetComponent<Soldier>().onStage == true)
             {
-                Destroy(btnManager.idToButtonMap[playerID]);
+                Destroy(btnManager!.idToButtonMap[playerID]);  //11.03
+              
                 btnManager.idToButtonMap.Remove(playerID);
                 Destroy(transform.parent.gameObject,2f);
             }
@@ -71,5 +79,10 @@ public class PlayerSoldierPhysics : MonoBehaviour
                 Destroy(transform.parent.gameObject,2f);
             }
         }
+    }
+    private void ShowText(float dmg)
+    {
+        var go =  Instantiate(FloatingTextPrefab, _quadTransform.transform.position,_quadTransform.transform.rotation);
+        go.GetComponent<TextMeshPro>().text = dmg.ToString();
     }
 }

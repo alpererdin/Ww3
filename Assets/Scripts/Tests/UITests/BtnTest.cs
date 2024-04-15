@@ -10,29 +10,67 @@ public class BtnTest : MonoBehaviour
     public Button BtnMenuBtn;
     public Button LockBtn;
     public Button CloseBtn;
-
+    public Button RunnBtn;
+    
     private bool rotated = false;
-    private void Start()
+
+
+    public GameObject btnMenuObj;
+    public GameObject LockBtnObj;
+    public GameObject CloseBtnObj;
+    public GameObject RunnBtnObj;
+    
+   public void OpenBtnMenu()
     {
-        CloseBtnMenu();
-    }
-    public void OpenBtnMenu()
-    {
-        //GameSignals.Instance.PlayOneShotEffect?.Invoke();
-        LockBtn.gameObject.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
+   
+        /*LockBtn.gameObject.SetActive(true);
         CloseBtn.gameObject.SetActive(true);
         BtnMenuBtn.gameObject.SetActive(false);
+        RunnBtn.gameObject.SetActive(true);*/
+        
+        LockBtnObj.gameObject.SetActive(true);
+        CloseBtnObj.gameObject.SetActive(true);
+        btnMenuObj.gameObject.SetActive(false);
+        RunnBtnObj.gameObject.SetActive(true);
+        
+        
     }
     public void CloseBtnMenu()
     {
-        //GameSignals.Instance.PlayOneShotEffect?.Invoke();
-        LockBtn.gameObject.SetActive(false);
+        AudioManager.Instance.PlaySFX("Click");
+
+        /*LockBtn.gameObject.SetActive(false);
         CloseBtn.gameObject.SetActive(false);
         BtnMenuBtn.gameObject.SetActive(true);
+        RunnBtn.gameObject.SetActive(false);*/
+        
+        LockBtnObj.gameObject.SetActive(false);
+        CloseBtnObj.gameObject.SetActive(false);
+        btnMenuObj.gameObject.SetActive(true);
+        RunnBtnObj.gameObject.SetActive(false);
     }
     public void RotateLockBtn()
     {
+        AudioManager.Instance.PlaySFX("Click");
+
         rotated = !rotated;
-        LockBtn.transform.localRotation = Quaternion.Euler(0, 0, rotated ? 270f : 180f);
+        LockBtn.transform.localRotation = Quaternion.Euler(0, 0, rotated ? 90f :0f);
+    }
+    public void InvokeButtons()
+    {
+        AudioManager.Instance.PlaySFX("whistle");
+        CloseBtnMenu();
+        Transform a = transform.GetChild(0).GetChild(0);
+        int childCount = a.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Transform child = a.transform.GetChild(i);
+            Button childButton = child.GetComponent<Button>();
+            if (childButton != null)
+            {
+                childButton.onClick.Invoke();
+            }
+        }
     }
 }

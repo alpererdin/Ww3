@@ -1,7 +1,8 @@
 namespace Interfaces
 {
-    public class ICommand
+    public interface ICommand
     {
-        
+        public void Execute(int parameter) { }
+        public void Execute() { }
     }
 }

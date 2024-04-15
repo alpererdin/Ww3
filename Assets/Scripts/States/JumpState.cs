@@ -13,7 +13,7 @@ namespace States
             _unit._anim.SetTrigger("JumpA");
             _unit.onStage = true;
             // _unit.Range += 1; 
-            _unit.Damage += 1; 
+            _unit.Damage += 2; 
      
         }
         public override void UpdateState() {}
@@ -40,9 +40,10 @@ namespace States
             _unit._anim.SetTrigger("JumpA");
             _unit.onStage = false;
             //_unit.Range -= 1;
-            _unit.Damage -= 1;
+            _unit.Damage -= 2;
             
             _unit.currentStage = null;
+            
         }
         public override void UpdateState() { }
         public override void FixedUpdate()

@@ -1,5 +1,6 @@
 using System;
 using Signals;
+using TMPro;
 using Units;
 using Unity.Mathematics;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class EnemyPhysics : MonoBehaviour
     public GameObject DeadParticle;
     public float enemyHealth;
     public float baseHealth;
+
+    public GameObject FloatingTextPrefab;
     void Start()
     {
         _quadTransform = _quadTransform.transform;
@@ -50,17 +53,29 @@ public class EnemyPhysics : MonoBehaviour
     }
     private void DeadFunc(float i)
     {
+        if (FloatingTextPrefab !=null)
+        {
+            ShowText(i);
+        }
+     
         enemyHealth -= i;
         float scaledHealth = Mathf.Clamp01((float)enemyHealth/baseHealth); 
         _quadTransform.localScale = new Vector3( scaledHealth, 1, 1);
         //another dmg and dead func+++
         if (enemyHealth <= 0)
         {
+            ScoreBoardSignals.Instance.OnKillEnemy?.Invoke();
             Instantiate(DeadParticle, transform.position, quaternion.identity);
             transform.GetComponent<CapsuleCollider>().isTrigger = true;       //24.02
             UnitSignals.Instance.DeathAnimAction?.Invoke(enemyID);
             Destroy(transform.parent.gameObject,2f);
         }
+    }
+
+    private void ShowText(float dmg)
+    {
+      var go =  Instantiate(FloatingTextPrefab, _quadTransform.transform.position,_quadTransform.transform.rotation);
+      go.GetComponent<TextMeshPro>().text = dmg.ToString();
     }
 }
  

@@ -9,7 +9,7 @@ public class MenuEffectManager : MonoBehaviour
     private void Awake()
     {
         
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         aSource.volume = _data.effectValue;
     }
     public void PlayMenuSound()

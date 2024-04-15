@@ -44,6 +44,7 @@ public class PlayerTankPyhsics : MonoBehaviour
         _quadTransform.localScale = new Vector3( scaledHealth, 1, 1);
         if (soldierHealth <= 0)
         {
+            ScoreBoardSignals.Instance.OnUnitLost?.Invoke();
             Destroy(transform.parent.gameObject,2f);
             Instantiate(DeadParticle, transform.position, quaternion.identity);
             transform.GetComponent<BoxCollider>().isTrigger = true; 

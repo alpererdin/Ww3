@@ -1,4 +1,5 @@
 using Data.ScriptableObjects;
+using Managers;
 using Signals;
 using UnityEngine;
 namespace Units
@@ -8,41 +9,66 @@ namespace Units
         [Header("DATA")]
         public SoldierData soldierData;
         private bool _soundTick;
+
+        private TakePrefsData takaDate;
+        public PlayerDataHandler.PlayerType type;
         protected override void Awake()
         {
-            if (soldierData != null)
+            takaDate = FindObjectOfType<TakePrefsData>();
+            if (takaDate==null)
             {
-                Range = soldierData.unitRange;
-                Speed = soldierData.unitSpeed;
-                Damage = soldierData.baseDamage;
-                BtnColor = soldierData.btnColor;
-                Health = soldierData.health;
-                
-                var simulatorSpeed = shootParticle.main;
+                if (soldierData != null)
+                {
+                    Range = soldierData.unitRange;
+                    Speed = soldierData.unitSpeed;
+                    Damage = soldierData.baseDamage;
+                    BtnColor = soldierData.btnColor;
+                    Health = soldierData.health;
+                    var simulatorSpeed = shootParticle.main;
+                    var emission = shootParticle.emission;
+                    emission.rateOverTimeMultiplier = soldierData.shootSpeed;
+                    simulatorSpeed.simulationSpeed = soldierData.bulletSpeed;
+                    var shotScatter = shootParticle.shape;
+                    shotScatter.angle = soldierData.shotScatter;
+                    simulatorSpeed.startSpeed =soldierData.unitRange +1;
+                    test = soldierData.imgg;
+                }
+                else
+                {
+                    Range = 25f;
+                    Speed = 1;
+                    Damage = 1f;
+                    Health = 10f;
+                    BtnColor = Color.blue;
+                    var simulatorSpeed = shootParticle.main;
+                    var emission = shootParticle.emission;
+                    emission.rateOverTimeMultiplier = 0.5f;
+                    simulatorSpeed.simulationSpeed = 0.5f;
+                    var shotScatter = shootParticle.shape;
+                    shotScatter.angle = 1f;
+                    simulatorSpeed.startSpeed =25;
+                }
+            }
+            else
+            {
+                takaDate.TakeUnitsData(type);
+                Damage =  soldierData.baseDamage+ takaDate.Damage;
+                Range  = soldierData.unitRange+takaDate.Range;
+                Health  = soldierData.health+ takaDate.Health;
                 var emission = shootParticle.emission;
-                emission.rateOverTimeMultiplier = soldierData.shootSpeed;
+                emission.rateOverTimeMultiplier +=  soldierData.shootSpeed+(takaDate.FireRate/10f);
+                Speed = soldierData.unitSpeed;
+                BtnColor = soldierData.btnColor;
+                var simulatorSpeed = shootParticle.main;
                 simulatorSpeed.simulationSpeed = soldierData.bulletSpeed;
                 var shotScatter = shootParticle.shape;
                 shotScatter.angle = soldierData.shotScatter;
                 simulatorSpeed.startSpeed =soldierData.unitRange +1;
                 test = soldierData.imgg;
             }
-            else
-            {
-                Range = 25f;
-                Speed = 1;
-                Damage = 1f;
-                Health = 10f;
-                
-                BtnColor = Color.blue;
-                var simulatorSpeed = shootParticle.main;
-                var emission = shootParticle.emission;
-                emission.rateOverTimeMultiplier = 0.5f;
-                simulatorSpeed.simulationSpeed = 0.5f;
-                var shotScatter = shootParticle.shape;
-                shotScatter.angle = 1f;
-                simulatorSpeed.startSpeed =25;
-            }
+         
+            
+            
             ID = GetInstanceID();
         }
         private void Update()
@@ -52,8 +78,9 @@ namespace Units
                 if (shootParticle.particleCount>0 && !_soundTick)
                 {
                     _soundTick = true;
-                    UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
-                    gunAnim.SetTrigger("Fire");
+                    AudioManager.Instance.PlaySFX("shoot");
+                   // UnitSignals.Instance.PlaySound?.Invoke(1,transform.position);
+                   // gunAnim.SetTrigger("Fire");
                     _anim.SetTrigger("ShootA");
                 }
                 if (shootParticle.particleCount==0)
@@ -65,5 +92,6 @@ namespace Units
         {
             CurrentState?.FixedUpdate();
         }
+      
     }
 }

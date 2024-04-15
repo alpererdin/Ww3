@@ -22,10 +22,12 @@ namespace Managers
         private void ListenPlaneTarget(Vector3 targetPosition)
         {
             StartCoroutine(FireRandomPlaneShots(targetPosition));
+            ScoreBoardSignals.Instance.OnSupportUsed?.Invoke();
         }
         private void ListenTargetCoord(Vector3 targetPosition)
         {
             StartCoroutine(FireRandomShots(targetPosition));
+            ScoreBoardSignals.Instance.OnSupportUsed?.Invoke();
         }
         private IEnumerator FireRandomShots(Vector3 targetPosition)
         {
@@ -64,7 +66,7 @@ namespace Managers
         {
             GameObject bombInstance = Instantiate(tankBomb, tankBase.position, Quaternion.identity);
 
-            while (Vector3.Distance(bombInstance.transform.position, targetPosition) > 0.01f)
+            while (bombInstance != null && Vector3.Distance(bombInstance.transform.position, targetPosition) > 0.01f)
             {
                 bombInstance.transform.position = Vector3.MoveTowards(bombInstance.transform.position, targetPosition, bombSpeed * Time.deltaTime);
                 yield return null;
@@ -74,7 +76,7 @@ namespace Managers
         {
             GameObject bomb = Instantiate(planeBomb, planeBase.position, Quaternion.identity);
 
-            while (Vector3.Distance(bomb.transform.position, targetPosition) > 0.01f)
+            while (bomb != null && Vector3.Distance(bomb.transform.position, targetPosition) > 0.01f)
             {
                 bomb.transform.position = Vector3.MoveTowards(bomb.transform.position, targetPosition, bombSpeed * Time.deltaTime);
                 yield return null;
@@ -84,6 +86,12 @@ namespace Managers
         {
             GameSignals.Instance.TargetTankAbility -= ListenTargetCoord;
             GameSignals.Instance.TargetPlaneAbility -= ListenPlaneTarget;
+            StopAllCoroutines();
+        } 
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
     }
 }

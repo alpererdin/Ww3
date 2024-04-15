@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 4
   unitSpeed: 3
-  shootSpeed: 0.2
-  bulletSpeed: 0.7
+  shootSpeed: 0.1
+  bulletSpeed: 2
   shotScatter: 0.1
-  unitRange: 35
+  unitRange: 30
   btnColor: {r: 1, g: 0.44488254, b: 0, a: 1}
-  coolDownTime: 5
-  health: 8
+  coolDownTime: 6
+  health: 9
   imgg: {fileID: 0}

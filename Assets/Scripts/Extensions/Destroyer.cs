@@ -1,4 +1,5 @@
 using System;
+using Signals;
 using UnityEngine;
 
 namespace Extensions
@@ -9,7 +10,15 @@ namespace Extensions
 
         private void Start()
         {
+            //UnitSignals.Instance.PlaySound?.Invoke(2,transform.position);
             Destroy(gameObject,_clc);
         }
+
+        //14.03
+        private void OnDisable()
+        {
+            Destroy(gameObject);
+        }
+       
     }
 }

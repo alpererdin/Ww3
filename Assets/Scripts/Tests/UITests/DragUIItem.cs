@@ -1,3 +1,4 @@
+using System;
 using Signals;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,5 +56,15 @@ public class DragUIItem : MonoBehaviour, IEndDragHandler, IDragHandler
         }
         cd = true;
         fillImage.fillAmount = 0f;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

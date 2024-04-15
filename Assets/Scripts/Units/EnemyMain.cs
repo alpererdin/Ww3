@@ -25,8 +25,6 @@ namespace Units
      //   [HideInInspector]
         public ParticleSystem shootParticle;
         [HideInInspector]
-        public Animator gunAnim;
-        [HideInInspector]
         public Animator _anim;
         [HideInInspector]
         public EnemyBaseState _memory;
@@ -50,30 +48,6 @@ namespace Units
             EnemyAISignals.Instance.EnemyTrenchID += EnemySignTest;
             UnitSignals.Instance.Throwbomb += throwFunc;
         }
-        private void throwFunc(int z)
-        {
-            if (_isBomber)
-            {
-                if (ID == z)
-                {
-                    GameObject go = Instantiate(bombPrefab, transform.GetChild(0).transform.position , transform.GetChild(0).transform.rotation);
-                    Rigidbody rb = go.GetComponent<Rigidbody>();  
-                    if (rb != null)
-                    {
-                        Vector3 forwardForce = transform.GetChild(0).transform.forward * forceMagnitude ;  
-                        Vector3 upwardForce = Vector3.up * forceMagnitude; 
-                        Vector3 totalForce = forwardForce + upwardForce; 
-                        rb.AddForce(totalForce, ForceMode.Impulse);
-                        Debug.Log("fnc calisir");
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Rigidbody component not found on instantiated bombPrefab.");
-                    }
-                }
-            }
-        }
-
         private void EnemySignTest(int arg0)
         {
             if (currentStageID==arg0 && CurrentState.Type == EnemyStateType.Idle)
@@ -81,7 +55,6 @@ namespace Units
                 SetUnitState(EnemyStateFactory.EnemyJumpedState());
             }
         }
-
         protected void SetDeathState(int i)
         {
             if (ID == i)
@@ -93,7 +66,6 @@ namespace Units
         {
             if (ID == i)
             {
-              //  SetUnitState(EnemyStateFactory.EnemyMoveState());
               SetUnitState(EnemyStateFactory.EnemyJumpedState());
             }
         }
@@ -121,13 +93,8 @@ namespace Units
 
                 if (CanEnterTrench(stage))
                 {
-                    currentStageID = stage.stageID;
-                    //EnemyAISignals.Instance.EnemyTrenchID?.Invoke(stage.stageID);
-                    
-                    stage._stageCount++;
+                    currentStageID = stage.stageID; 
                     stage.HaveEnemy=true;
-                    //UnitSignals.Instance.OnUnitID?.Invoke(ID, BtnColor, stage.pos, other.gameObject);
-                    //SetUnitState(EnemyStateFactory.EnemyIdleState());
                     SetUnitState(EnemyStateFactory.EnemyJumpState());
                 }
             }
@@ -138,7 +105,38 @@ namespace Units
         }
         private bool CanEnterTrench(StageTypeOne stage)
         {
-            return stage._stageCount < 5 && !stage.locked;
+            // locked bugs
+            return stage._stageCount < 5 ;//&& !stage.locked;
         } 
+        private void throwFunc(int z)
+        {
+            if (_isBomber)
+            {
+                if (ID == z)
+                {
+                    GameObject go = Instantiate(bombPrefab, transform.GetChild(0).transform.position , transform.GetChild(0).transform.rotation);
+                    Rigidbody rb = go.GetComponent<Rigidbody>();  
+                    if (rb != null)
+                    {
+                        Vector3 forwardForce = transform.GetChild(0).transform.forward * forceMagnitude ;  
+                        Vector3 upwardForce = Vector3.up * forceMagnitude; 
+                        Vector3 totalForce = forwardForce + upwardForce; 
+                        rb.AddForce(totalForce, ForceMode.Impulse);
+                        //   Debug.Log("fnc calisir");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("rb not found ");
+                    }
+                }
+            }
+        }
+        private void OnDisable()
+        {
+            UnitSignals.Instance.SetUnitState -= CheckId;
+            UnitSignals.Instance.DeathAnimAction -= SetDeathState;
+            EnemyAISignals.Instance.EnemyTrenchID -= EnemySignTest;
+            UnitSignals.Instance.Throwbomb -= throwFunc;
+        }
     } 
 }

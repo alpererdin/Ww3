@@ -1,3 +1,4 @@
+using Stages;
 using Units;
 using UnityEngine;
 namespace States.EnemyState
@@ -11,15 +12,12 @@ namespace States.EnemyState
             this._enemy = enemy;
             _enemy._anim.SetTrigger("JumpA");
             _enemy.onStage = true;
+            _enemy.currentStage.GetComponent<StageTypeOne>()._stageCount++;
+            _enemy.Damage += 2;
         }
-
-        public override void UpdateState()
-        {
-         
-        }
+        public override void UpdateState() { }
         public override void FixedUpdate()
         {
-            
             if (_enemy.transform.position.y > 0.75f)
             {
                 _enemy.transform.position += new Vector3(0, -0.1f, -0.8f) * Time.deltaTime * _enemy.Speed;
@@ -39,11 +37,11 @@ namespace States.EnemyState
         {
             this._enemy = enemy;
             _enemy._anim.SetTrigger("JumpA");
-            _enemy.currentStage = null;
+            _enemy.currentStage.GetComponent<StageTypeOne>()._stageCount--;
+            _enemy.Damage -= 2;
+           
             
-            _enemy.onStage = false;
         }
-
         public override void UpdateState() { }
         public override void FixedUpdate()
         {
@@ -53,13 +51,14 @@ namespace States.EnemyState
             }
             if (_enemy.transform.position.y == 1.05f)
             {
-             /*   var transform = _enemy.transform;
-                var position = transform.position;
-                position= new Vector3(position.x,1.05f,position.z);
-                transform.position = position;*/
                 _enemy.SetUnitState(EnemyStateFactory.EnemyMoveState());
             } 
         }
-        public override void ExitState() { }
+
+        public override void ExitState()
+        {
+            _enemy.onStage = false;
+            _enemy.currentStage = null;
+        }
     }
 }

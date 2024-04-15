@@ -48,8 +48,9 @@ namespace Units
             if (shootParticle.particleCount>0 && !_soundTick)
             {
                 _soundTick = true;
-                UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
-                gunAnim.SetTrigger("Fire");
+                AudioManager.Instance.PlaySFX("shootEnemy");
+               // UnitSignals.Instance.PlaySound?.Invoke(0,transform.position);
+//                gunAnim.SetTrigger("Fire");
                 _anim.SetTrigger("ShootA");
             }
             if (shootParticle.particleCount==0)

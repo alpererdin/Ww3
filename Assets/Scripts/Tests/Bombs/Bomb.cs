@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -29,10 +30,20 @@ public class Bomb : MonoBehaviour
        
         var i =Instantiate(explosionCollider, transform.position, Quaternion.identity);
  
-        
+        //UnitSignals.Instance.PlaySound?.Invoke(3,transform.position);
+        AudioManager.Instance.PlaySFX("bombSmall");
         Destroy(i.gameObject,0.1f);
         Destroy(gameObject,0.2f);
        
         
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

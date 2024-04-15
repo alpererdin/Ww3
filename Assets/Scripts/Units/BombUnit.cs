@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Units
 {
-    public class BombUnit : MonoBehaviour
+   /* public class BombUnit : MonoBehaviour
     {
         internal int Speed; 
         //[HideInInspector]
@@ -33,5 +33,5 @@ namespace Units
         public float Damage;
 
         public GameObject currentStage;
-    }
+    }*/
 }

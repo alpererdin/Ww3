@@ -3,6 +3,8 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using System.Collections;
 using System.Collections.Generic;
+using Signals;
+
 public class TankTest : MonoBehaviour
 {
     public GameObject _Turret;
@@ -20,12 +22,14 @@ public class TankTest : MonoBehaviour
     private bool Fire = false;
 
     public GameObject tankBullet;
+    public GameObject explosionFire;
     private Quaternion rot;
     void Update()
     {
-        if (!onFight)
+        if (!onFight && _target==null)
         {
             MoveTankForward();
+        //StopCoroutine("FireCoroutine" );
         }
         CheckForEnemies();
         if (_target != null)
@@ -56,6 +60,7 @@ public class TankTest : MonoBehaviour
         {
             ResetTurret();
             onFight = false;
+            _target = null;
         }
     }
     void ResetTurret()
@@ -81,12 +86,28 @@ public class TankTest : MonoBehaviour
         shoot = false;
         yield return new WaitForSeconds(shootDelay);
         shoot = true;
-        if (shoot)
+        if (shoot &&  _target!=null)
         {
-            Debug.Log("ateeees");
+            AudioManager.Instance.PlaySFX("bombSmall");
+            //UnitSignals.Instance.PlaySound?.Invoke(3,transform.position);
             Instantiate(tankBullet, _shootPoint.transform.position, _shootPoint.transform.rotation);
+            if (explosionFire != null)
+            {
+                Instantiate(explosionFire, _shootPoint.transform.position, _shootPoint.transform.rotation);
+            }
+            
          
         }
         Fire = false;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

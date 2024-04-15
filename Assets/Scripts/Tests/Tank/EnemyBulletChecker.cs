@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 
 public class EnemyBulletChecker : MonoBehaviour
@@ -12,7 +13,9 @@ public class EnemyBulletChecker : MonoBehaviour
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Instantiate(explosionCollider, transform.position, Quaternion.identity);
-            Destroy(gameObject.transform.parent.gameObject,0.1f);
+            Destroy(gameObject,0.2f);
+            //UnitSignals.Instance.PlaySound?.Invoke(3,transform.position);
+            AudioManager.Instance.PlaySFX("bombSmall");
         }
     }
 }

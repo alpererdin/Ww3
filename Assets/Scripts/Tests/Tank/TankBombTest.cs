@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Signals;
 using UnityEngine;
 public class TankBombTest : MonoBehaviour
 {
@@ -29,8 +30,13 @@ public class TankBombTest : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        Instantiate(explosionCollider, transform.position, Quaternion.identity);
-        Destroy(gameObject,0.2f);
+        if (other.gameObject.CompareTag("Plane"))
+        {
+            AudioManager.Instance.PlaySFX("bombSmall");
+            //UnitSignals.Instance.PlaySound?.Invoke(3,transform.position);
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(explosionCollider, transform.position, Quaternion.identity);
+            Destroy(gameObject,0.2f);
+        }
     }
 }

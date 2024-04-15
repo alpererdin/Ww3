@@ -56,6 +56,8 @@ namespace Managers
         }
         private void ActivateButton(Button clickedButton, float cooldownTime)
         { 
+            AudioManager.Instance.PlaySFX("Click");
+           // GameSignals.Instance.PlayEffect?.Invoke(0);
             StopAllCoroutines();
             button1.image.fillAmount = 0f;
             button2.image.fillAmount = 0f;
@@ -89,5 +91,14 @@ namespace Managers
             button.interactable = true;
             button.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         } 
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+        }
     }
 }

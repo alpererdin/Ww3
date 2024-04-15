@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf12c9c3ca94cc6bf9ce452d74b882a, type: 3}
   m_Name: BasicEnemy
   m_EditorClassIdentifier: 
-  baseDamage: 3
+  baseDamage: 1
   unitSpeed: 4
-  shootSpeed: 0.5
-  bulletSpeed: 0.5
+  shootSpeed: 0.2
+  bulletSpeed: 1
   shotScatter: 1
   unitRange: 25
   btnColor: {r: 1, g: 0, b: 0.029372692, a: 1}
   coolDownTime: 2
-  health: 10
+  health: 6
   imgg: {fileID: 0}
